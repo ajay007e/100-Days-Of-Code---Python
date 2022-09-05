@@ -1,0 +1,2 @@
+# there is no coding exercise available in day 7
+# only theoretical classes are available in day 7
