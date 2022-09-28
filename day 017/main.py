@@ -1,5 +1,5 @@
 from question_model import Question
-# from data import question_data as qd
+## from data import question_data as qd
 from data import Data
 from quiz_brain import QuestionBrain
 
