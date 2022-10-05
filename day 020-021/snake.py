@@ -4,6 +4,7 @@ from time import sleep
 class Snake:
     def __init__(self):
         self.starting_position = [(0,0),(-20,0),(-40,0)]
+        # self.starting_position = [(0,0),(-5,0),(-10,0)]
         self.distance = 20
         self.segment =[]
         self.create_snake()
@@ -12,15 +13,22 @@ class Snake:
     def create_snake(self):
         for i in range(3):
             t = Turtle("square")
+            # t.shapesize(stretch_wid=0.5,stretch_len=0.5)
             t.penup()
             t.goto(self.starting_position[i])
             t.color("white")
             self.segment.append(t)
 
-        
+    def add(self):
+        t = Turtle("square")
+        # t.shapesize(stretch_wid=0.5,stretch_len=0.5)
+        t.penup()
+        t.goto(self.segment[-1].position())
+        t.color("white")
+        self.segment.append(t)
     
     def move(self,):
-        sleep(.1)
+        sleep(0.1)
         for i in range(len(self.segment)-1,0,-1):
             x = self.segment[i-1].xcor()
             y = self.segment[i-1].ycor()
@@ -28,12 +36,12 @@ class Snake:
         self.head.forward(self.distance)
     
     def up(self):
-        if self.head.heading() != -90:
+        if self.head.heading() != 270:
             self.head.setheading(90)
 
     def down(self):
         if self.head.heading() != 90:
-            self.head.setheading(-90)
+            self.head.setheading(270)
 
     def right(self):
         if self.head.heading() != 180:
