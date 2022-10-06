@@ -1,5 +1,4 @@
 from turtle import Turtle
-from time import sleep
 
 class Paddle(Turtle):
     def __init__(self,x,y):
@@ -14,8 +13,8 @@ class Paddle(Turtle):
     
     def up(self):
         if self.ycor() <= 270:
-            self.goto(self.xcor(),self.ycor()+20)
+            self.goto(self.xcor(),self.ycor()+self.distance)
 
     def down(self):
         if self.ycor() >= -270:
-            self.goto(self.xcor(),self.ycor()-20)
+            self.goto(self.xcor(),self.ycor()-self.distance)
