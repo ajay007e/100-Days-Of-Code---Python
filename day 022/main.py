@@ -1,6 +1,7 @@
 from turtle import Screen
 from paddle import Paddle
 from ball import Ball
+from score import Score
 
 
 
@@ -13,6 +14,7 @@ s.tracer(0)
 r_p = Paddle(350,0)
 l_p = Paddle(-350,0)
 b = Ball()
+sc = Score()
 
 s.listen()
 s.onkey(r_p.up,"Up")
@@ -26,7 +28,16 @@ while game_on:
     b.move()
 
     if b.ycor() > 270 or b.ycor() < -270:
-        b.bounce()
+        b.bounce_y()
+
+    if b.distance(r_p) < 50 and b.xcor() >320 or b.distance(l_p) < 50 and b.xcor() < -320:
+        b.bounce_x()
+    elif b.distance(r_p) > 50 and b.xcor() >320 :
+        b.reset()
+        sc.add_l_score()
+    elif b.distance(l_p) > 50 and b.xcor() < -320:
+        b.reset()
+        sc.add_r_score()
 
 
 s.exitonclick()
