@@ -8,7 +8,8 @@ class Score(Turtle):
     def __init__(self):
         super().__init__()
         self.score = 0
-        self.hScore =0
+        with open("day 020-021/highScore.txt", "r") as f:
+            self.hScore =int(f.read())        
         self.color("white")
         self.penup()
         self.goto(0,270)
@@ -22,6 +23,8 @@ class Score(Turtle):
     def reset(self):
         if self.score > self.hScore:
             self.hScore = self.score
+            with open("day 020-021/highScore.txt", "w") as f:
+                f.write(f"{self.hScore}")
         self.score = 0
         self.refresh()
     
