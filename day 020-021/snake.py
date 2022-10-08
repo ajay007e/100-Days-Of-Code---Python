@@ -19,6 +19,13 @@ class Snake:
             t.color("white")
             self.segment.append(t)
 
+    def reset(self):
+        for s in self.segment:
+            s.goto(1000,1000)
+        self.segment.clear()
+        self.create_snake()
+        self.head = self.segment[0]
+
     def add(self):
         t = Turtle("square")
         # t.shapesize(stretch_wid=0.5,stretch_len=0.5)
