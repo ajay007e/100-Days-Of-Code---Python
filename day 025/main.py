@@ -50,13 +50,13 @@ import pandas as pd
 
 
 
-data = pd.read_csv("day 025/Squirrel_Data.csv")
-black = data[data["Primary Fur Color"] == "Black"].index
-gray = data[data["Primary Fur Color"] == "Gray"].index
-cinnamon = data[data["Primary Fur Color"] == "Cinnamon"].index
+# data = pd.read_csv("day 025/Squirrel_Data.csv")
+# black = data[data["Primary Fur Color"] == "Black"].index
+# gray = data[data["Primary Fur Color"] == "Gray"].index
+# cinnamon = data[data["Primary Fur Color"] == "Cinnamon"].index
 
-dic = {
-    "fur_color": ["Black","Gray","Cinnamon"],
-    "count":[len(black),len(gray),len(cinnamon)]
-}
-pd.DataFrame(dic).to_csv("day 025/fur_data.csv")
+# dic = {
+#     "fur_color": ["Black","Gray","Cinnamon"],
+#     "count":[len(black),len(gray),len(cinnamon)]
+# }
+# pd.DataFrame(dic).to_csv("day 025/fur_data.csv")      //squirrel data analysis using the pandas package
