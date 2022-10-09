@@ -12,8 +12,39 @@ import pandas as pd
 
 
 
-data = pd.read_csv("day 025/weather_data.csv")
-print(data)
-print(data["temp"])                                   
+# data = pd.read_csv("day 025/weather_data.csv")
+# print(data)
+# print(data["temp"])                                   // task 2 : csv reading using pandas package
 
+
+
+data = pd.read_csv("day 025/weather_data.csv")
+
+## dataframe into dictionary
+data_dict = data.to_dict()
+print(data_dict)
+
+## series into list
+data_list = data["temp"].to_list()
+print(data_list)
+
+## row selection using the pandas package
+print(data.temp)
+
+## methods in the pandas package
+print(data["temp"].mean())
+
+## column selection using pandas package
+print(data[data.day == "Monday"])
+print(data[data.temp == data.temp.max() ])
+
+## creating dataframe using pandas package
+data_dic = {
+    "students":["Ajay", "Amal", "Praveen"],
+    "scores":[20,30,40]
+}
+data = pd.DataFrame(data_dic)
+
+### to create csv from dataframe
+data.to_csv("day 025/new_csv.csv")
 
