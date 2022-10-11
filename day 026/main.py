@@ -72,3 +72,17 @@ def temperatureConversion():
     print(weather_f)
 
 
+# iteration through pandas dataframe
+
+import pandas as pd
+
+dic = {
+    "student":["Ajay","Amal","Praveen"],
+    "score":[50,70,90]
+}
+
+student_data = pd.DataFrame(dic)
+
+    # inbuilt loop in pandas package
+for (index,row) in student_data.iterrows():
+    print(row)
