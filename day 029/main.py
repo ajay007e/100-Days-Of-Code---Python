@@ -1,7 +1,25 @@
 import tkinter
-from tkinter import font
+import pyperclip
+from tkinter import messagebox
+from random import randint,choice,shuffle
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+
+def passwordGenerator():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    password_list = [choice(letters) for _ in range(randint(8,10))]
+    password_list += [choice(symbols) for _ in range(randint(2,4))]
+    password_list += [choice(numbers) for _ in range(randint(2,4))]
+
+    shuffle(password_list)
+    password = "".join(password_list)
+    password_entry.delete(0,len(password_entry.get()))
+    password_entry.insert(0,password)
+    pyperclip.copy(password)
+    
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -9,10 +27,17 @@ def add():
     web = web_entry.get()
     user = username_entry.get()
     password = password_entry.get()
-    web_entry.delete(0,len(web))
-    password_entry.delete(0,len(password))
-    with open("day 029/data.txt","a") as f:
-        f.write(f"{web.title()} | {user} | {password} \n")
+
+    if len(web) == 0 or len(user) == 0 or len(password) == 0:
+        messagebox.showinfo("Opps",message="Please fill data in the required fields")
+    else:
+        status = messagebox.askokcancel(title=web.title(), message=f"There are the details of you entered :\nEmail:{user}\nPassword:{password}\nIs it okey to continue?")
+
+        if status:
+            web_entry.delete(0,len(web))
+            password_entry.delete(0,len(password))
+            with open("day 029/data.txt","a") as f:
+                f.write(f"{web.title()} | {user} | {password} \n")
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -48,7 +73,7 @@ password_label.grid(column=0,row=3)
 password_entry = tkinter.Entry(width=26)
 password_entry.grid(column=1,row=3)
 
-generate_password_btn = tkinter.Button(text="Generate Password",font=("Ariel",5,"bold"))
+generate_password_btn = tkinter.Button(text="Generate Password",font=("Ariel",5,"bold"),command=passwordGenerator)
 generate_password_btn.grid(column=2,row=3)
 
 add_btn = tkinter.Button(text="Add",width=36,pady=5,command=add)
