@@ -1,8 +1,18 @@
 import tkinter
+from tkinter import font
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+
+def add():
+    web = web_entry.get()
+    user = username_entry.get()
+    password = password_entry.get()
+    web_entry.delete(0,len(web))
+    password_entry.delete(0,len(password))
+    with open("day 029/data.txt","a") as f:
+        f.write(f"{web.title()} | {user} | {password} \n")
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -16,16 +26,32 @@ window.config(padx=20,pady=20)
 canvas = tkinter.Canvas(width=200,height=200,highlightthickness=0)
 lock_img = tkinter.PhotoImage(file="day 029/logo.png")
 canvas.create_image(100,112,image=lock_img)
-# timer_text = canvas.create_text(100,140,text="00.00",fill="white",font=(FONT_NAME,30,"bold"))
-canvas.grid(column=1,row=1)
+canvas.grid(column=1,row=0)
 
-# start_btn = tkinter.Button(text="Start",command=start_timer)
-# start_btn.grid(column=0,row=2)
+web_label = tkinter.Label(text="Website:",pady=5)
+web_label.grid(column=0,row=1)
 
-# reset_btn = tkinter.Button(text="Reset",command=reset_timer)
-# reset_btn.grid(column=3,row=2)
+web_entry = tkinter.Entry(width=39)
+web_entry.focus()
+web_entry.grid(column=1,row=1,columnspan=2)
 
-# check_label = tkinter.Label(fg=GREEN,bg=YELLOW,font=(FONT_NAME,30,"normal"))
-# check_label.grid(column=1,row=3)
+username_label = tkinter.Label(text="Email/Username:",pady=5)
+username_label.grid(column=0,row=2)
+
+username_entry = tkinter.Entry(width=39)
+username_entry.insert(0,"ajay007e")
+username_entry.grid(column=1,row=2,columnspan=2)
+
+password_label = tkinter.Label(text="Password:",pady=5)
+password_label.grid(column=0,row=3)
+
+password_entry = tkinter.Entry(width=26)
+password_entry.grid(column=1,row=3)
+
+generate_password_btn = tkinter.Button(text="Generate Password",font=("Ariel",5,"bold"))
+generate_password_btn.grid(column=2,row=3)
+
+add_btn = tkinter.Button(text="Add",width=36,pady=5,command=add)
+add_btn.grid(column=1,row=4,columnspan=2)
 
 window.mainloop()
