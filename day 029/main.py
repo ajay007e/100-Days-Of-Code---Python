@@ -2,6 +2,7 @@ import tkinter
 import pyperclip
 from tkinter import messagebox
 from random import randint,choice,shuffle
+import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
@@ -22,11 +23,32 @@ def passwordGenerator():
     
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+def search():
+    web = web_entry.get()
+    
+    web_entry.delete(0,len(web))
+    try:
+        with open("day 029/data.json","r") as f:
+            data = json.load(f)
+            if web in data.keys():
+                data = data[web]
+                messagebox.showinfo(title="Info",message=f"username:{data['username']}\npassword:{data['password']}\n")
+            else:
+                messagebox.showerror(title="Info",message="No Data found")
+
+    except FileNotFoundError:
+        messagebox.showerror(title="Info",message="No Data found")
 
 def add():
     web = web_entry.get()
     user = username_entry.get()
     password = password_entry.get()
+    dic = {
+            web :{
+                "username":user,
+                "password":password
+            }
+        }
 
     if len(web) == 0 or len(user) == 0 or len(password) == 0:
         messagebox.showinfo("Opps",message="Please fill data in the required fields")
@@ -36,8 +58,16 @@ def add():
         if status:
             web_entry.delete(0,len(web))
             password_entry.delete(0,len(password))
-            with open("day 029/data.txt","a") as f:
-                f.write(f"{web.title()} | {user} | {password} \n")
+            try:
+                with open("day 029/data.json","r") as f:
+                    data = json.load(f)
+                    data.update(dic)
+                with open("day 029/data.json","w") as f:
+                    json.dump(data,f,indent=4)
+            except FileNotFoundError:
+                with open("day 029/data.json","w") as f:
+                    json.dump(dic,f,indent=4)
+                
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -56,9 +86,12 @@ canvas.grid(column=1,row=0)
 web_label = tkinter.Label(text="Website:",pady=5)
 web_label.grid(column=0,row=1)
 
-web_entry = tkinter.Entry(width=39)
+web_entry = tkinter.Entry(width=26)
 web_entry.focus()
-web_entry.grid(column=1,row=1,columnspan=2)
+web_entry.grid(column=1,row=1)
+
+search_btn = tkinter.Button(text="Search",width=14,font=("Ariel",5,"bold"),command=search)
+search_btn.grid(column=2,row=1)
 
 username_label = tkinter.Label(text="Email/Username:",pady=5)
 username_label.grid(column=0,row=2)
