@@ -49,5 +49,4 @@ right_btn = tkinter.Button(image=right_img,highlightthickness=0,command=tick_btn
 right_btn.grid(column=1,row=1)
 
 
-
 window.mainloop()
