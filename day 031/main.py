@@ -1,8 +1,11 @@
+from textwrap import fill
 import tkinter
 import pandas as pd
 import random
 
 BACKGROUND_COLOR = "#B1DDC6"
+WORD = None
+TIMER = None
 
 data = pd.read_csv("day 031/data/french_words.csv")
 dic = {}
@@ -10,15 +13,41 @@ for (index,row) in data.iterrows():
     dic[index] = [row.English,row.French]
 
 def get_word():
-    return dic[random.randint(0,len(dic))]
+    global TIMER
+    TIMER = window.after(3000,switch_card)
+    word = dic[random.randint(0,len(dic))]
+    # print(word)
+    return word
 
 def cross_btn_click():
-    word = get_word()
-    canvas.itemconfig(lang_text,text=word[1])
+    global WORD,TIMER
+    if TIMER != None:
+        window.after_cancel(TIMER)
+    switch_card()
+    # WORD = get_word()
+    # canvas.itemconfig(lang_text,text=WORD[1],fill="black")
+    # canvas.itemconfig(title_text,text="French",fill="black")
+    # canvas.itemconfig(canvas_img,image=front_img)
+    
 
 def tick_btn_click():
-    word = get_word()
-    canvas.itemconfig(lang_text,text=word[1])
+    global WORD,TIMER
+    if TIMER != None:
+        window.after_cancel(TIMER)
+    WORD = get_word()
+    canvas.itemconfig(lang_text,text=WORD[1],fill="black")
+    canvas.itemconfig(title_text,text="French",fill="black")
+    canvas.itemconfig(canvas_img,image=front_img)
+
+def switch_card():
+    global WORD
+    canvas.itemconfig(canvas_img,image=back_img)
+    canvas.itemconfig(title_text,text="Engilsh",fill="white")
+    canvas.itemconfig(lang_text,text=WORD[0],fill="white")
+
+
+
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -30,13 +59,13 @@ canvas = tkinter.Canvas(width=800,height=526,highlightthickness=0,bg=BACKGROUND_
 front_img = tkinter.PhotoImage(file="day 031/images/card_front.png")
 back_img = tkinter.PhotoImage(file="day 031/images/card_back.png")
 
-canvas.create_image(400,263,image=front_img)
+canvas_img = canvas.create_image(400,263,image=front_img)
 canvas.grid(column=0,row=0,columnspan=2)
 
-word = get_word()
+WORD = get_word()
 
 title_text = canvas.create_text(400,150,text="French",font=("Ariel",40,"italic"))
-lang_text = canvas.create_text(400,263,text=word[1],font=("Arial",60,"bold"))
+lang_text = canvas.create_text(400,263,text=WORD[1],font=("Arial",60,"bold"))
 
 wrong_img = tkinter.PhotoImage(file="day 031/images/wrong.png")
 right_img = tkinter.PhotoImage(file="day 031/images/right.png")
