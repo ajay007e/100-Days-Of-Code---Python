@@ -7,7 +7,13 @@ BACKGROUND_COLOR = "#B1DDC6"
 WORD = None
 TIMER = None
 
-data = pd.read_csv("day 031/data/french_words.csv")
+try:
+    data = pd.read_csv("day 031/data/word_to_learn.csv")
+except:
+    pd.read_csv("day 031/data/french_words.csv").to_csv("day 031/data/word_to_learn.csv")
+    data = pd.read_csv("day 031/data/word_to_learn.csv")
+
+
 dic = {}
 for (index,row) in data.iterrows():
     dic[index] = [row.English,row.French]
@@ -15,8 +21,12 @@ for (index,row) in data.iterrows():
 def get_word():
     global TIMER
     TIMER = window.after(3000,switch_card)
-    word = dic[random.randint(0,len(dic))]
-    # print(word)
+    while True:
+        try:
+            word = dic[random.randint(0,len(dic))]
+            break
+        except:
+            pass
     return word
 
 def cross_btn_click():
@@ -24,23 +34,34 @@ def cross_btn_click():
     if TIMER != None:
         window.after_cancel(TIMER)
     switch_card()
-    # WORD = get_word()
-    # canvas.itemconfig(lang_text,text=WORD[1],fill="black")
-    # canvas.itemconfig(title_text,text="French",fill="black")
-    # canvas.itemconfig(canvas_img,image=front_img)
     
 
 def tick_btn_click():
     global WORD,TIMER
+
     if TIMER != None:
         window.after_cancel(TIMER)
+        word = WORD
+        # print(data)
+        pos = 0
+        for (index,row) in data.iterrows():
+            if row.English == word[0] and row.French == word[1]:
+                pos=index
+                break
+        # print(pos)
+        del dic[pos]
+        data.drop(pos,axis=0,inplace=True)
+        data.to_csv("day 031/data/word_to_learn.csv",index=False)
+        
+
     WORD = get_word()
     canvas.itemconfig(lang_text,text=WORD[1],fill="black")
     canvas.itemconfig(title_text,text="French",fill="black")
     canvas.itemconfig(canvas_img,image=front_img)
 
 def switch_card():
-    global WORD
+    global WORD,TIMER
+    TIMER= None
     canvas.itemconfig(canvas_img,image=back_img)
     canvas.itemconfig(title_text,text="Engilsh",fill="white")
     canvas.itemconfig(lang_text,text=WORD[0],fill="white")
