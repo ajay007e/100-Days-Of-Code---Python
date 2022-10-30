@@ -1,14 +1,15 @@
-from textwrap import fill
 import tkinter
 import pandas as pd
 import random
+
+# ---------------------------- THERE EXIST SOME BUGS IN THE PROGRAM --------------------------------
 
 BACKGROUND_COLOR = "#B1DDC6"
 WORD = None
 TIMER = None
 
 try:
-    data = pd.read_csv("day 031/data/word_to_learn.csv")
+    data = pd.read_csv("day 031/data/word_to_learn.csv") 
 except:
     pd.read_csv("day 031/data/french_words.csv").to_csv("day 031/data/word_to_learn.csv")
     data = pd.read_csv("day 031/data/word_to_learn.csv")
