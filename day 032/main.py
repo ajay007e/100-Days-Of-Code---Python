@@ -7,6 +7,7 @@ recipient_mail = "ajay010e@gmail.com"
 sub = "Testing Mail"
 msg = "This is a test message to check the smtplib."
 
+
 # connection = smtplib.SMTP("smtp.gmail.com")
 # connection.starttls()
 # connection.login(user=email,password=password)
@@ -15,6 +16,7 @@ msg = "This is a test message to check the smtplib."
 #     to_addrs=recipient_mail,
 #     msg=f"Subject:{sub}\n\n{msg}")
 # connection.close()
+
 
 with smtplib.SMTP("smtp.gmail.com",port=587) as connection:
     connection.starttls()
