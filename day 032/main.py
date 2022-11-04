@@ -4,7 +4,7 @@ email ="ajay010e.edu@gmail.com"
 password = "password"
 recipient_mail = "ajay010e@gmail.com"
 port = 587 # 465
-localhost = "smtp.gmail.com"
+host = "smtp.gmail.com"
 
 sub = "Testing Mail"
 msg = "This is a test message to check the smtplib."
@@ -19,7 +19,7 @@ msg = "This is a test message to check the smtplib."
 #     msg=f"Subject:{sub}\n\n{msg}")
 # connection.close()
 
-with smtplib.SMTP(localhost,port) as connection:
+with smtplib.SMTP(host,port) as connection:
     connection.ehlo()
     connection.starttls()
     print("hsi")
