@@ -22,11 +22,9 @@ msg = "This is a test message to check the smtplib."
 with smtplib.SMTP(host,port) as connection:
     connection.ehlo()
     connection.starttls()
-    print("hsi")
     connection.login(user=email,password=password)
     connection.sendmail(
         from_addr=email,
         to_addrs=recipient_mail,
         msg=f"Subject:{sub}\n\n{msg}"
         )
-    print("hsis")
