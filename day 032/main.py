@@ -1,7 +1,7 @@
 import smtplib
 
 email ="ajay010e.edu@gmail.com"
-password = "password"
+password = "Ajay@1999E"
 recipient_mail = "ajay010e@gmail.com"
 port = 587 # 465
 host = "smtp.gmail.com"
